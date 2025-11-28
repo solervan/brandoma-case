@@ -1,31 +1,32 @@
 import './Header.scss'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import LogoPartner from '../../../app/assets/svg/icons/Brandma.svg'
-import { Button } from 'rsuite';
+import { Button } from 'rsuite'
+import { Link } from '@tanstack/react-router'
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
     { name: 'Главная', href: '#' },
     { name: 'Заказы', href: '#' },
     { name: 'Цены', href: '#' },
     { name: 'О нас', href: '#' },
-    { name: 'Контакты', href: '#' }
-  ];
+    { name: 'Контакты', href: '#' },
+  ]
 
   return (
     <header className="header">
       <div className="header__container">
         {/* Логотип */}
         <div className="header__brand">
-          <a href="#" className="header__logo-link">
+          <Link to="/">
             <img
               className="header__logo"
               src={LogoPartner}
               alt="Строительная компания"
             />
-          </a>
+          </Link>
         </div>
 
         <nav className="header__nav">
@@ -41,13 +42,8 @@ export default function Header() {
         </nav>
 
         <div className="header__actions">
-  
-          <Button
-            appearance="primary" 
-            size='md' 
-            color='orange'
-          >
-            Начать работу
+          <Button appearance="primary" size="md" color="orange">
+            <Link to="/auth/registration">Начать работу</Link>
           </Button>
         </div>
 
@@ -61,7 +57,9 @@ export default function Header() {
           <span></span>
         </button>
 
-        <div className={`header__mobile-menu ${isMenuOpen ? 'header__mobile-menu--active' : ''}`}>
+        <div
+          className={`header__mobile-menu ${isMenuOpen ? 'header__mobile-menu--active' : ''}`}
+        >
           <nav className="header__mobile-nav">
             <div className="header__mobile-brand">
               <img
@@ -89,16 +87,16 @@ export default function Header() {
               <Button
                 className="header__mobile-button header__mobile-button--login"
                 onClick={() => setIsMenuOpen(false)}
-                appearance='default'
+                appearance="default"
               >
                 Войти
               </Button>
               <Button
                 className="header__mobile-button header__mobile-button--signup"
                 onClick={() => setIsMenuOpen(false)}
-                appearance='default'
+                appearance="default"
               >
-                Начать работу
+                <Link to="/auth/registration">Начать работу</Link>
               </Button>
             </div>
           </nav>

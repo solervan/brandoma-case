@@ -1,0 +1,247 @@
+.registration-form {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  height: 100vh;
+  background-color: var(--color-regular);
+
+  &__container {
+    display: contents;
+  }
+
+  // Левая часть со слайдером фото
+  &__logo-side {
+    position: relative;
+    grid-column: 1;
+    overflow: hidden;
+  }
+
+  &__photo-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+
+    &--transitioning {
+      opacity: 0.7;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+
+    .registration-form__photo-container:hover & {
+      transform: scale(1.05);
+    }
+  }
+
+  &__photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 167, 43, 0.8) 0%,
+      rgba(255, 167, 43, 0.6) 50%,
+      rgba(255, 167, 43, 0.4) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  &__logo-text {
+    color: var(--color-dark-gray);
+    font-size: 50px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__photo-indicators {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(42, 42, 42, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &--active {
+      background-color: var(--color-dark-gray);
+      transform: scale(1.2);
+    }
+
+    &:hover {
+      background-color: var(--color-dark-gray);
+    }
+  }
+
+  // Правая часть с формой
+  &__form-side {
+    display: grid;
+    background-color: white;
+    justify-content: center;
+  }
+
+  &__content {
+    align-self: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 20px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__paragraph {
+    color: var(--color-dark-gray);
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  &__text {
+    color: var(--color-dark-gray);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  &__field {
+    display: grid;
+  }
+
+  &__input {
+    margin-top: 10px;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-dark-gray);
+    background-color: white;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-yellow);
+      box-shadow: 0 0 0 3px rgba(255, 167, 43, 0.1);
+    }
+
+    &::placeholder {
+      color: #999;
+      font-family: 'Poppins', sans-serif;
+    }
+  }
+
+  &__button-form {
+    display: grid;
+    margin-top: 10px;
+  }
+
+  &__submit-btn {
+    padding: 12px 16px;
+    background-color: var(--color-yellow);
+    color: var(--color-dark-gray);
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    &:hover {
+      background-color: #e6951f;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  &__login-link {
+    margin-top: 20px;
+    color: var(--color-dark-gray);
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+  }
+
+  &__link {
+    color: var(--color-yellow);
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #e6951f;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .registration-form {
+    grid-template-columns: 1fr;
+    
+    &__logo-side {
+      display: none;
+    }
+
+    &__form-side {
+      grid-column: 1;
+    }
+
+    &__content {
+      padding: 0 30px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form {
+    &__logo-text {
+      font-size: 40px;
+    }
+
+    &__paragraph {
+      font-size: 24px;
+    }
+
+    &__content {
+      padding: 0 20px;
+    }
+  }
+}

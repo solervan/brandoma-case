@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -14,8 +15,9 @@ export default defineConfig({
       target: 'react',
       autoCodeSplitting: true,
       generatedRouteTree: 'src/shared/lib/router/routeTree.gen.ts',
-      // routeToken: 'layout',
       routesDirectory: 'src/app/routes'
+      // routeToken: 'layout',
+   
     }),
     react(),
   ],
