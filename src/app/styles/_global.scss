@@ -1,0 +1,62 @@
+@use "variables";
+@use "fonts";
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  border: 0;
+  background: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(    --color-regular);
+  background-repeat: no-repeat;
+  height: 100%;
+  line-height: 100%;
+  overflow-x: hidden;
+  font-family: 'OpenSans', sans-serif;
+    color: var( --color-regular);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  :hover {
+    color: var( --color-hover);;
+  }
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  margin-bottom: 60px;
+  margin-top: 40px;
+}
+img {
+  display: block;
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+
+.breadcrumbs-section {
+  padding-bottom: 50px;
+}
+
+::after, ::before { margin: 0; box-sizing: border-box; }
+
+::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}

@@ -1,0 +1,63 @@
+@mixin base-table($responsive: true,$widthTable: 100%) {
+    width:$widthTable;
+  background: var(--table-bg);
+  color: var(--table-text-color);
+  font-size: var(--table-font-size, 1rem);
+  border-collapse: var(--table-border-collapse, collapse);
+  border-spacing: var(--table-border-spacing, 0);
+  overflow: hidden; 
+
+  th,
+  td {
+    padding: var(--table-padding, 1rem);
+    border-bottom: 1px solid var(--table-border-color);
+    text-align: left;
+    vertical-align: middle;
+    
+    &:first-child { 
+      padding-left: var(--table-padding, 1rem); 
+    }
+    &:last-child  { 
+      padding-right: var(--table-padding, 1rem); 
+    }
+  }
+
+  thead {
+    background: var(--table-head-bg);
+    th {
+      font-weight: 600;
+      border-bottom-width: 1px;
+    }
+  }
+
+  tbody {
+    tr {
+      cursor: pointer;
+      background: transparent;
+      
+      &:nth-of-type(odd) { 
+        background: var(--table-row-alt-bg); 
+      } 
+      
+      &:hover { 
+        background: var(--table-row-hover-bg); 
+      } 
+    }
+  }
+
+  &.with-border {
+    border: 1px solid var(--table-border-color);
+  }
+}
+
+//////////////////////////////////////////////////////<layout>
+@mixin header-section() {
+    display: grid;
+    grid-template-columns: 1fr 1376px 1fr;
+    height: 157px
+};
+
+@mixin regular-section() {
+    display: grid;
+    grid-template-columns: 1fr 1476px 1fr;
+};

@@ -1,0 +1,10 @@
+
+@use "@styles/index" as style;
+
+.home-page {
+
+    @include style.regular-section;
+    &__content {
+        grid-column: 2;
+    }
+}

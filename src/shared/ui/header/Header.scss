@@ -1,0 +1,33 @@
+@use "@styles/index" as style;
+
+
+.header {
+   background-color: #222;
+
+&__container {
+     @include style.regular-section;
+    .header__content {
+        
+        display: grid;
+        grid-template-rows: 1fr 100px 1fr;
+        grid-column: 2;
+
+    
+        .header__main-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  grid-row: 2;
+   
+      .header__list {
+      
+        display: flex;
+        text-align: left;
+        gap: 30px;
+       
+        }
+      }
+
+    }
+}  
+}
