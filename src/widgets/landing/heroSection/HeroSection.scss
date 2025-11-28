@@ -1,0 +1,173 @@
+@use "@styles/index" as style;
+
+
+.hero {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+ 
+
+  &__content {
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+
+    &--primary {
+      background-color: #007bff;
+      color: white;
+
+      &:hover {
+        background-color: #0056b3;
+        transform: translateY(-1px);
+      }
+    }
+
+    &--secondary {
+      background-color: transparent;
+      color: #007bff;
+      border: 2px solid #007bff;
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 40px 0;
+  }
+
+  &__teams {
+    &-title {
+      font-size: 1.25rem;
+      color: #1a1a1a;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    &-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  &__team {
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #e9ecef;
+        transform: translateY(-1px);
+      }
+    }
+
+    &-checkbox {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    &-name {
+      font-size: 0.875rem;
+      color: #495057;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .hero {
+    padding: 40px 16px;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__description {
+      font-size: 1rem;
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__button {
+      width: 200px;
+    }
+
+    &__teams-list {
+      gap: 12px;
+    }
+
+    &__team-item {
+      padding: 6px 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__teams-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
