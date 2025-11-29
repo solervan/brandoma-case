@@ -43,7 +43,7 @@ export default function Header() {
 
         <div className="header__actions">
           <Button appearance="primary" size="md" color="orange">
-            <Link to="/auth/registration">Начать работу</Link>
+            <Link to="/auth/register">Начать работу</Link>
           </Button>
         </div>
 
@@ -96,7 +96,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 appearance="default"
               >
-                <Link to="/auth/registration">Начать работу</Link>
+                <Link to="/auth/register">Начать работу</Link>
               </Button>
             </div>
           </nav>

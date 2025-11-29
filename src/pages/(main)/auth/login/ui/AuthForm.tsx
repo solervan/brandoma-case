@@ -104,7 +104,7 @@ export default function AuthForm() {
 
               <div className="auth-form__register-link">
                 New Customer? {""}
-                <Link to="/auth/registration" className="auth-form__link">
+                <Link to="/auth/register" className="auth-form__link">
                   Register
                 </Link>
               </div>

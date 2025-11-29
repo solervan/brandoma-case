@@ -13,13 +13,21 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './../../../app/routes/__root'
 import { Route as LayoutRouteImport } from './../../../app/routes/_layout'
 import { Route as LayoutIndexRouteImport } from './../../../app/routes/_layout.index'
+import { Route as ProductsProductsRouteImport } from './../../../app/routes/products/products'
+import { Route as ProductsProductsLayoutRouteImport } from './../../../app/routes/products/_products-layout'
 import { Route as AuthRegistrationLayoutRouteImport } from './../../../app/routes/auth/_registration-layout'
 import { Route as AuthAuthLayoutRouteImport } from './../../../app/routes/auth/_auth-layout'
 import { Route as AuthAuthLayoutSigninRouteImport } from './../../../app/routes/auth/_auth-layout.signin'
-import { Route as AuthAuthLayoutRegistrationRouteImport } from './../../../app/routes/auth/_auth-layout.registration'
+import { Route as AuthAuthLayoutRegisterRouteImport } from './../../../app/routes/auth/_auth-layout.register'
 
+const ProductsRouteImport = createFileRoute('/products')()
 const AuthRouteImport = createFileRoute('/auth')()
 
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -34,6 +42,15 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const ProductsProductsRoute = ProductsProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsProductsLayoutRoute = ProductsProductsLayoutRouteImport.update({
+  id: '/_products-layout',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const AuthRegistrationLayoutRoute = AuthRegistrationLayoutRouteImport.update({
   id: '/_registration-layout',
   getParentRoute: () => AuthRoute,
@@ -47,23 +64,26 @@ const AuthAuthLayoutSigninRoute = AuthAuthLayoutSigninRouteImport.update({
   path: '/signin',
   getParentRoute: () => AuthAuthLayoutRoute,
 } as any)
-const AuthAuthLayoutRegistrationRoute =
-  AuthAuthLayoutRegistrationRouteImport.update({
-    id: '/registration',
-    path: '/registration',
-    getParentRoute: () => AuthAuthLayoutRoute,
-  } as any)
+const AuthAuthLayoutRegisterRoute = AuthAuthLayoutRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthAuthLayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRegistrationLayoutRoute
+  '/products': typeof ProductsProductsLayoutRoute
+  '/products/products': typeof ProductsProductsRoute
   '/': typeof LayoutIndexRoute
-  '/auth/registration': typeof AuthAuthLayoutRegistrationRoute
+  '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/signin': typeof AuthAuthLayoutSigninRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRegistrationLayoutRoute
+  '/products': typeof ProductsProductsLayoutRoute
+  '/products/products': typeof ProductsProductsRoute
   '/': typeof LayoutIndexRoute
-  '/auth/registration': typeof AuthAuthLayoutRegistrationRoute
+  '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/signin': typeof AuthAuthLayoutSigninRoute
 }
 export interface FileRoutesById {
@@ -72,33 +92,59 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/auth/_auth-layout': typeof AuthAuthLayoutRouteWithChildren
   '/auth/_registration-layout': typeof AuthRegistrationLayoutRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/products/_products-layout': typeof ProductsProductsLayoutRoute
+  '/products/products': typeof ProductsProductsRoute
   '/_layout/': typeof LayoutIndexRoute
-  '/auth/_auth-layout/registration': typeof AuthAuthLayoutRegistrationRoute
+  '/auth/_auth-layout/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/_auth-layout/signin': typeof AuthAuthLayoutSigninRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/auth' | '/' | '/auth/registration' | '/auth/signin'
+  fullPaths:
+    | '/auth'
+    | '/products'
+    | '/products/products'
+    | '/'
+    | '/auth/register'
+    | '/auth/signin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/' | '/auth/registration' | '/auth/signin'
+  to:
+    | '/auth'
+    | '/products'
+    | '/products/products'
+    | '/'
+    | '/auth/register'
+    | '/auth/signin'
   id:
     | '__root__'
     | '/_layout'
     | '/auth'
     | '/auth/_auth-layout'
     | '/auth/_registration-layout'
+    | '/products'
+    | '/products/_products-layout'
+    | '/products/products'
     | '/_layout/'
-    | '/auth/_auth-layout/registration'
+    | '/auth/_auth-layout/register'
     | '/auth/_auth-layout/signin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
+  ProductsRoute: typeof ProductsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -119,6 +165,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
+    }
+    '/products/products': {
+      id: '/products/products'
+      path: '/products'
+      fullPath: '/products/products'
+      preLoaderRoute: typeof ProductsProductsRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/_products-layout': {
+      id: '/products/_products-layout'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsProductsLayoutRouteImport
+      parentRoute: typeof ProductsRoute
     }
     '/auth/_registration-layout': {
       id: '/auth/_registration-layout'
@@ -141,11 +201,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLayoutSigninRouteImport
       parentRoute: typeof AuthAuthLayoutRoute
     }
-    '/auth/_auth-layout/registration': {
-      id: '/auth/_auth-layout/registration'
-      path: '/registration'
-      fullPath: '/auth/registration'
-      preLoaderRoute: typeof AuthAuthLayoutRegistrationRouteImport
+    '/auth/_auth-layout/register': {
+      id: '/auth/_auth-layout/register'
+      path: '/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthAuthLayoutRegisterRouteImport
       parentRoute: typeof AuthAuthLayoutRoute
     }
   }
@@ -163,12 +223,12 @@ const LayoutRouteWithChildren =
   LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 interface AuthAuthLayoutRouteChildren {
-  AuthAuthLayoutRegistrationRoute: typeof AuthAuthLayoutRegistrationRoute
+  AuthAuthLayoutRegisterRoute: typeof AuthAuthLayoutRegisterRoute
   AuthAuthLayoutSigninRoute: typeof AuthAuthLayoutSigninRoute
 }
 
 const AuthAuthLayoutRouteChildren: AuthAuthLayoutRouteChildren = {
-  AuthAuthLayoutRegistrationRoute: AuthAuthLayoutRegistrationRoute,
+  AuthAuthLayoutRegisterRoute: AuthAuthLayoutRegisterRoute,
   AuthAuthLayoutSigninRoute: AuthAuthLayoutSigninRoute,
 }
 
@@ -188,9 +248,24 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface ProductsRouteChildren {
+  ProductsProductsLayoutRoute: typeof ProductsProductsLayoutRoute
+  ProductsProductsRoute: typeof ProductsProductsRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsProductsLayoutRoute: ProductsProductsLayoutRoute,
+  ProductsProductsRoute: ProductsProductsRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
+  ProductsRoute: ProductsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

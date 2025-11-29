@@ -9,7 +9,7 @@ export default function WelcomePage() {
       <div className="home-page__content">
           <HeroSection/>
           <SupportSection/>
-          <PricingSection/>
+          {/* <PricingSection/> */}
       </div>
     </div>
   )

@@ -137,6 +137,7 @@
     display: grid;
   }
 
+
   &__input {
     margin-top: 10px;
     padding: 12px 16px;
@@ -159,13 +160,36 @@
       color: #999;
       font-family: 'Poppins', sans-serif;
     }
+
+    // Стили для ошибок
+    &--error {
+      border-color: #ff4757;
+      background-color: rgba(255, 71, 87, 0.02);
+      
+      &:focus {
+        border-color: #ff4757;
+        box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+      }
+    }
   }
 
-  &__button-form {
-    display: grid;
-    margin-top: 10px;
+  // Стили для сообщений об ошибках
+  &__error {
+    color: #ff4757;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 6px;
+    padding-left: 4px;
+    animation: fadeInUp 0.3s ease;
+    
+    &::before {
+      content: "⚠ ";
+      font-size: 10px;
+    }
   }
 
+  // Стили для кнопки в состоянии загрузки
   &__submit-btn {
     padding: 12px 16px;
     background-color: var(--color-yellow);
@@ -178,6 +202,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
     &:hover {
       background-color: #e6951f;
@@ -188,60 +217,91 @@
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
+      
+      &:hover {
+        background-color: var(--color-yellow);
+        transform: none;
+      }
+    }
+
+    // Стили для лоадера внутри кнопки
+    .rs-loader {
+      margin: 0;
+      
+      &-spinner {
+        width: 16px;
+        height: 16px;
+        
+        &::before,
+        &::after {
+          border-color: var(--color-dark-gray) transparent transparent transparent;
+        }
+      }
     }
   }
 
-  &__login-link {
-    margin-top: 20px;
-    color: var(--color-dark-gray);
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
+  // Анимация появления ошибок
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  &__link {
-    color: var(--color-yellow);
-    text-decoration: none;
-    transition: color 0.3s ease;
+  // Дополнительные стили для полей с ошибками
+  &__field {
+    display: grid;
+    
+    // Увеличиваем отступ снизу для поля с ошибкой
+    &:has(.registration-form__error) {
+      margin-bottom: 4px;
+    }
+  }
 
-    &:hover {
-      color: #e6951f;
-      text-decoration: underline;
+  // Стили для успешного состояния (опционально)
+  &__input--success {
+    border-color: #2ed573;
+    
+    &:focus {
+      border-color: #2ed573;
+      box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.1);
+    }
+  }
+
+  // Стили для уведомлений (если используете rsuite Notification)
+  .rs-notification {
+    &-item {
+      &-content {
+        font-family: 'Poppins', sans-serif;
+      }
     }
   }
 }
 
-// Адаптивность
+// Адаптивность для ошибок
 @media (max-width: 768px) {
   .registration-form {
-    grid-template-columns: 1fr;
-    
-    &__logo-side {
-      display: none;
-    }
-
-    &__form-side {
-      grid-column: 1;
-    }
-
-    &__content {
-      padding: 0 30px;
+    &__error {
+      font-size: 11px;
     }
   }
 }
 
 @media (max-width: 480px) {
   .registration-form {
-    &__logo-text {
-      font-size: 40px;
+    &__error {
+      font-size: 10px;
     }
-
-    &__paragraph {
-      font-size: 24px;
-    }
-
-    &__content {
-      padding: 0 20px;
+    
+    &__submit-btn {
+      .rs-loader-spinner {
+        width: 14px;
+        height: 14px;
+      }
     }
   }
 }
