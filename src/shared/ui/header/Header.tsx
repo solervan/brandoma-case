@@ -1,6 +1,6 @@
 import './Header.scss'
 import React, { useState } from 'react'
-import LogoPartner from '../../../app/assets/svg/icons/Brandma.svg'
+import LogoPartner from '../../../app/assets/images/logos/logo.png'
 import { Button } from 'rsuite'
 import { Link } from '@tanstack/react-router'
 

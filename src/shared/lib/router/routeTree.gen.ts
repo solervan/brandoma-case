@@ -12,20 +12,21 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './../../../app/routes/__root'
 import { Route as LayoutRouteImport } from './../../../app/routes/_layout'
+import { Route as ChatIndexRouteImport } from './../../../app/routes/chat/index'
 import { Route as LayoutIndexRouteImport } from './../../../app/routes/_layout.index'
-import { Route as ProductsProductsRouteImport } from './../../../app/routes/products/products'
-import { Route as ProductsProductsLayoutRouteImport } from './../../../app/routes/products/_products-layout'
+import { Route as ChatProductsRouteImport } from './../../../app/routes/chat/products'
+import { Route as ChatChatLayoutRouteImport } from './../../../app/routes/chat/_chat-layout'
 import { Route as AuthRegistrationLayoutRouteImport } from './../../../app/routes/auth/_registration-layout'
 import { Route as AuthAuthLayoutRouteImport } from './../../../app/routes/auth/_auth-layout'
 import { Route as AuthAuthLayoutSigninRouteImport } from './../../../app/routes/auth/_auth-layout.signin'
 import { Route as AuthAuthLayoutRegisterRouteImport } from './../../../app/routes/auth/_auth-layout.register'
 
-const ProductsRouteImport = createFileRoute('/products')()
+const ChatRouteImport = createFileRoute('/chat')()
 const AuthRouteImport = createFileRoute('/auth')()
 
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -37,19 +38,24 @@ const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatIndexRoute = ChatIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ChatRoute,
+} as any)
 const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
-const ProductsProductsRoute = ProductsProductsRouteImport.update({
+const ChatProductsRoute = ChatProductsRouteImport.update({
   id: '/products',
   path: '/products',
-  getParentRoute: () => ProductsRoute,
+  getParentRoute: () => ChatRoute,
 } as any)
-const ProductsProductsLayoutRoute = ProductsProductsLayoutRouteImport.update({
-  id: '/_products-layout',
-  getParentRoute: () => ProductsRoute,
+const ChatChatLayoutRoute = ChatChatLayoutRouteImport.update({
+  id: '/_chat-layout',
+  getParentRoute: () => ChatRoute,
 } as any)
 const AuthRegistrationLayoutRoute = AuthRegistrationLayoutRouteImport.update({
   id: '/_registration-layout',
@@ -72,16 +78,17 @@ const AuthAuthLayoutRegisterRoute = AuthAuthLayoutRegisterRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRegistrationLayoutRoute
-  '/products': typeof ProductsProductsLayoutRoute
-  '/products/products': typeof ProductsProductsRoute
+  '/chat': typeof ChatChatLayoutRoute
+  '/chat/products': typeof ChatProductsRoute
   '/': typeof LayoutIndexRoute
+  '/chat/': typeof ChatIndexRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/signin': typeof AuthAuthLayoutSigninRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRegistrationLayoutRoute
-  '/products': typeof ProductsProductsLayoutRoute
-  '/products/products': typeof ProductsProductsRoute
+  '/chat': typeof ChatIndexRoute
+  '/chat/products': typeof ChatProductsRoute
   '/': typeof LayoutIndexRoute
   '/auth/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/signin': typeof AuthAuthLayoutSigninRoute
@@ -92,10 +99,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/auth/_auth-layout': typeof AuthAuthLayoutRouteWithChildren
   '/auth/_registration-layout': typeof AuthRegistrationLayoutRoute
-  '/products': typeof ProductsRouteWithChildren
-  '/products/_products-layout': typeof ProductsProductsLayoutRoute
-  '/products/products': typeof ProductsProductsRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/chat/_chat-layout': typeof ChatChatLayoutRoute
+  '/chat/products': typeof ChatProductsRoute
   '/_layout/': typeof LayoutIndexRoute
+  '/chat/': typeof ChatIndexRoute
   '/auth/_auth-layout/register': typeof AuthAuthLayoutRegisterRoute
   '/auth/_auth-layout/signin': typeof AuthAuthLayoutSigninRoute
 }
@@ -103,16 +111,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/auth'
-    | '/products'
-    | '/products/products'
+    | '/chat'
+    | '/chat/products'
     | '/'
+    | '/chat/'
     | '/auth/register'
     | '/auth/signin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
-    | '/products'
-    | '/products/products'
+    | '/chat'
+    | '/chat/products'
     | '/'
     | '/auth/register'
     | '/auth/signin'
@@ -122,10 +131,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/auth/_auth-layout'
     | '/auth/_registration-layout'
-    | '/products'
-    | '/products/_products-layout'
-    | '/products/products'
+    | '/chat'
+    | '/chat/_chat-layout'
+    | '/chat/products'
     | '/_layout/'
+    | '/chat/'
     | '/auth/_auth-layout/register'
     | '/auth/_auth-layout/signin'
   fileRoutesById: FileRoutesById
@@ -133,16 +143,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
-  ProductsRoute: typeof ProductsRouteWithChildren
+  ChatRoute: typeof ChatRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -159,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat/': {
+      id: '/chat/'
+      path: '/'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof ChatIndexRouteImport
+      parentRoute: typeof ChatRoute
+    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
@@ -166,19 +183,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
-    '/products/products': {
-      id: '/products/products'
+    '/chat/products': {
+      id: '/chat/products'
       path: '/products'
-      fullPath: '/products/products'
-      preLoaderRoute: typeof ProductsProductsRouteImport
-      parentRoute: typeof ProductsRoute
+      fullPath: '/chat/products'
+      preLoaderRoute: typeof ChatProductsRouteImport
+      parentRoute: typeof ChatRoute
     }
-    '/products/_products-layout': {
-      id: '/products/_products-layout'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsProductsLayoutRouteImport
-      parentRoute: typeof ProductsRoute
+    '/chat/_chat-layout': {
+      id: '/chat/_chat-layout'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatChatLayoutRouteImport
+      parentRoute: typeof ChatRoute
     }
     '/auth/_registration-layout': {
       id: '/auth/_registration-layout'
@@ -248,24 +265,24 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-interface ProductsRouteChildren {
-  ProductsProductsLayoutRoute: typeof ProductsProductsLayoutRoute
-  ProductsProductsRoute: typeof ProductsProductsRoute
+interface ChatRouteChildren {
+  ChatChatLayoutRoute: typeof ChatChatLayoutRoute
+  ChatProductsRoute: typeof ChatProductsRoute
+  ChatIndexRoute: typeof ChatIndexRoute
 }
 
-const ProductsRouteChildren: ProductsRouteChildren = {
-  ProductsProductsLayoutRoute: ProductsProductsLayoutRoute,
-  ProductsProductsRoute: ProductsProductsRoute,
+const ChatRouteChildren: ChatRouteChildren = {
+  ChatChatLayoutRoute: ChatChatLayoutRoute,
+  ChatProductsRoute: ChatProductsRoute,
+  ChatIndexRoute: ChatIndexRoute,
 }
 
-const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
-  ProductsRouteChildren,
-)
+const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
-  ProductsRoute: ProductsRouteWithChildren,
+  ChatRoute: ChatRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
